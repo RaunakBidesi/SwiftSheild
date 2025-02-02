@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShiftShield Nexus: Incident Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+        :root {
+            --primary-glow: conic-gradient(
+                from 180deg at 50% 50%,
+                #16abff33 0deg,
+                #0885ff33 55deg,
+                #54d6ff33 120deg,
+                #0071ff33 160deg,
+                transparent 360deg
+            );
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .dashboard-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-glow);
+            filter: blur(45px);
+            transform: translateZ(0);
+        }
+
+        .table-container {
+            max-width: 1200px;
+            width: 100%;
+            overflow-x: auto;
+            padding: 1rem;
+        }
+
+        .stacked-table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .stacked-table th,
+        .stacked-table td {
+            text-align: left;
+            padding: 1rem;
+        }
+
+        .stacked-table th {
+            background: rgba(31, 41, 55, 0.8);
+            color: white;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .stacked-table tbody tr:nth-child(even) {
+            background: rgba(31, 41, 55, 0.6);
+        }
+
+        .stacked-table tbody tr:nth-child(odd) {
+            background: rgba(17, 24, 39, 0.6);
+        }
+
+        .severity {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .high { background-color: #ef4444; color: white; }
+        .medium { background-color: #3b82f6; color: white; }
+        .low { background-color: #6b7280; color: white; }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            color: white;
+        }
+
+        #vanta-bg {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <div id="vanta-bg"></div>
+    <div class="dashboard-container">
+        <div class="glow"></div>
+        <h1 class="text-5xl font-black text-center mb-12 relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+            ShiftShield Nexus: Incident Reports
+        </h1>
+        <div class="table-container relative z-10">
+            <table class="stacked-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                        <th>Severity</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2025-01-21</td>
+                        <td>14:45</td>
+                        <td>Store A</td>
+                        <td><span class="severity high">High</span></td>
+                        <td>Armed robbery with an axe used to break glass.</td>
+                        <td><button class="action-btn">View ➔</button></td>
+                    </tr>
+                    <tr>
+                        <td>2025-01-20</td>
+                        <td>10:30</td>
+                        <td>Store B</td>
+                        <td><span class="severity medium">Medium</span></td>
+                        <td>Physical assault with no firearms involved.</td>
+                        <td><button class="action-btn">View ➔</button></td>
+                    </tr>
+                    <tr>
+                        <td>2025-01-19</td>
+                        <td>09:15</td>
+                        <td>Store C</td>
+                        <td><span class="severity low">Low</span></td>
+                        <td>Robbery without weapons or physical contact.</td>
+                        <td><button class="action-btn">View ➔</button></td>
+                    </tr>
+                    <tr>
+                        <td>2025-01-18</td>
+                        <td>20:00</td>
+                        <td>Store D</td>
+                        <td><span class="severity high">High</span></td>
+                        <td>Shots fired with no injuries.</td>
+                        <td><button class="action-btn">View ➔</button></td>
+                    </tr>
+                    <tr>
+                        <td>2025-01-17</td>
+                        <td>18:25</td>
+                        <td>Store E</td>
+                        <td><span class="severity medium">Medium</span></td>
+                        <td>Robbers entered and broke glass but no injuries.</td>
+                        <td><button class="action-btn">View ➔</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Initialize VANTA.NET
+        VANTA.NET({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x3a9,
+            backgroundColor: 0x0
+        });
+    </script>
+</body>
+</html>
